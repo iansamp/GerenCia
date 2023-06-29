@@ -1,0 +1,33 @@
+:root{
+    --orange: #F26B0C;
+    --grey: #DFE0DF;
+    --light-brown: #693B21;
+    --Brown: #402E32
+
+}
+
+.navbar{
+    background-color: var(--orange);
+    display: flex;
+    flex-direction: column;
+    width: 30vh;
+    height: 100vh;
+}
+
+.navbar h1{
+    padding: 2em 0em 0em;
+    text-align: center;
+    font-size: 26px;
+}
+
+.navbar ul{
+    text-decoration: none;
+    list-style: none;
+    margin-top: 1em;
+}
+
+.navbar ul, li{
+    text-decoration: none;
+    list-style: none;
+    padding: 1em;
+}
