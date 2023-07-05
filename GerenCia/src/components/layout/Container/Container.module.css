@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+
+}
+
+.min-height{
+    min-width: 75%;
+}
+
+.start{
+    justify-content: flex-start;
+}
+

@@ -10,14 +10,19 @@
     background-color: var(--orange);
     display: flex;
     flex-direction: column;
-    width: 30vh;
+    max-width: 30%;
     height: 100vh;
 }
 
 .navbar h1{
-    padding: 2em 0em 0em;
+    padding: 1.5em 1em 1.5em;
     text-align: center;
     font-size: 26px;
+}
+
+.navbar h1 a{
+    text-decoration: none;
+    color: black;
 }
 
 .navbar ul{
@@ -26,8 +31,15 @@
     margin-top: 1em;
 }
 
-.navbar ul, li{
+.navbar ul li{
     text-decoration: none;
     list-style: none;
     padding: 1em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.navbar ul li a{
+    text-decoration: none;
+    list-style: none;
+    color: black;
 }
