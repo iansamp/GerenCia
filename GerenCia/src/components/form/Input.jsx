@@ -5,7 +5,7 @@ export default function Input({
   text,
   name,
   placeholder,
-  handleOnChange,
+  handleChangeValues,
   value,
 }) {
   const Label = styled.label`
@@ -37,7 +37,7 @@ export default function Input({
         name={name}
         id={name}
         placeholder={placeholder}
-        onChange={handleOnChange}
+        onChange={handleChangeValues}
         value={value}
       />
     </Content>
