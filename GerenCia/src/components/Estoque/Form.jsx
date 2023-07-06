@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Select from "../form/Select";
 import { useState } from "react";
+import Axios from "axios";
 
 const Label = styled.label`
   margin-top: 0.6em;
@@ -46,17 +47,23 @@ export default function Form() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    Axios.post("http://localhost:3001/register", values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
-
+  
   return (
     <form>
       <Content>
         <Label htmlFor="produto">Produto:</Label>
         <input
           text="Produto:"
-          name="product"
+          name="produto"
           type="text"
           placeholder="Insira o tipo de produto"
           onChange={handleChangeValues}
@@ -64,7 +71,7 @@ export default function Form() {
         <Label htmlFor="Quantidade">Quantidade:</Label>
         <input
           text="Quantidade:"
-          name="amount"
+          name="quantidade"
           type="number"
           placeholder="Insira a quantidade"
           onChange={handleChangeValues}
@@ -72,7 +79,7 @@ export default function Form() {
         <Label htmlFor="Valor total">Valor total:</Label>
         <input
           text="Valor total:"
-          name="total"
+          name="preco_total"
           type="number"
           placeholder="Insira o valor total"
           onChange={handleChangeValues}
