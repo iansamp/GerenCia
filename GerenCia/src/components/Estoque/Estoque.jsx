@@ -60,7 +60,6 @@ const Table = styled.table`
 const Estoque = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [listProduct, setListProduct] = useState();
-  const [listCard, setListCard] = useState();
 
   const handleClick = () => {
     setIsVisible(!isVisible);
