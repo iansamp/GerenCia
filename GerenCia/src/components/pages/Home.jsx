@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export default function Home() {
-
-  const Div = styled.div`
+const Div = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,6 +17,8 @@ export default function Home() {
     text-transform: uppercase;
   `;
 
+
+export default function Home() {
   return (
       <Div>
         <Title>Bem-vindo</Title>

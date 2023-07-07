@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import Form from "./Form";
-import { useState } from "react";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import Axios from "axios";
+import Form from "./Form";
 
 const Button = styled.button`
   background-color: #222;
@@ -42,14 +42,14 @@ const Table = styled.table`
     text-transform: uppercase;
   }
 
-  th{
-    background-color:white;
+  th {
+    background-color: white;
   }
 
   th,
   td {
     border: 1px solid black;
-    padding: .2em;
+    padding: 0.2em;
   }
 
   tr:nth-child(even) {
@@ -57,12 +57,24 @@ const Table = styled.table`
   }
 `;
 
-const ToggleButton = () => {
+const Estoque = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [listProduct, setListProduct] = useState();
+  const [listCard, setListCard] = useState();
 
   const handleClick = () => {
     setIsVisible(!isVisible);
   };
+
+  useEffect(() => {
+    if (!listProduct) {
+      Axios.get("http://localhost:3001/estoque")
+        .then((response) => {
+          setListProduct(response.data);
+        })
+        .catch((error) => console.error("Erro ao buscar dados:", error));
+    }
+  }, [listProduct]);
 
   return (
     <Div>
@@ -79,58 +91,28 @@ const ToggleButton = () => {
           <tr>
             <th>ID</th>
             <th>Produto</th>
-            <th>Qnt</th>
+            <th>Quantidade</th>
             <th>Preço Total</th>
             <th>Preço Und</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>01</td>
-            <td>cebola</td>
-            <td>280</td>
-            <td>320</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>02</td>
-            <td>pão</td>
-            <td>500</td>
-            <td>500</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>03</td>
-            <td>sal</td>
-            <td>100</td>
-            <td>50</td>
-            <td>0.50</td>
-          </tr>
-          <tr>
-            <td>01</td>
-            <td>cebola</td>
-            <td>280</td>
-            <td>320</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>01</td>
-            <td>cebola</td>
-            <td>280</td>
-            <td>320</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>01</td>
-            <td>cebola</td>
-            <td>280</td>
-            <td>320</td>
-            <td>1</td>
-          </tr>
+          {typeof listProduct !== "undefined" &&
+            listProduct.map((item) => {
+              return (
+                <tr key={item.produto}>
+                  <td>{item.id}</td>
+                  <td>{item.produto}</td>
+                  <td>{item.quantidade}</td>
+                  <td>{item.preco_total}</td>
+                  <td>{item.preco_und.toFixed(2)}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </Table>
     </Div>
   );
 };
 
-export default ToggleButton;
+export default Estoque;

@@ -29,7 +29,6 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
-
 // Configurar a conexão com o banco de dados
 const db = mysql.createConnection({
   host: "localhost",
@@ -47,18 +46,15 @@ db.connect((err) => {
   }
 });
 
-// Rota para criar uma nova conta
+// Rota para adicionar produtos no estoque
 app.post("/register", (req, res) => {
-    const { produto, quantidade, preco_total } = req.body;
+  const { produto, quantidade, preco_total } = req.body;
   console.log(produto);
-
-  // Calcular o preço por unidade
-  const preco_und = preco_total / quantidade;
 
   // Inserir os dados no banco de dados
   const sql =
-    'INSERT INTO estoque (produto, quantidade, preco_total, preco_und) VALUES ("dertegente", 256, 750.63, ?)';
-  const values = [produto, quantidade, preco_total, preco_und];
+    'INSERT INTO estoque (produto, quantidade, preco_total) VALUES (?, ?, ?)';
+  const values = [produto, quantidade, preco_total];
 
   db.query(sql, values, (err, result) => {
     if (err) {
@@ -67,6 +63,27 @@ app.post("/register", (req, res) => {
     } else {
       console.log("Produto adicionado com sucesso!");
       res.send("Produto adicionado com sucesso!");
+    }
+  });
+});
+
+// Rota para buscar os dados da tabela estoque
+app.get("/estoque", (req, res) => {
+  const sql = "SELECT id, produto, quantidade, preco_total FROM estoque";
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Erro ao buscar dados:", err);
+      res.status(500).send("Erro ao buscar dados");
+    } else {
+      const data = result.map((row) => ({
+        id: row.id,
+        produto: row.produto,
+        quantidade: row.quantidade,
+        preco_total: row.preco_total,
+        preco_und: row.preco_total / row.quantidade,
+      }));
+      res.send(data);
     }
   });
 });
