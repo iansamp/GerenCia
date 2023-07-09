@@ -1,24 +1,3 @@
-/* const express = require('express');
-const app = express();
-const mysql = require('mysql');
-
-const db = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'gestão',
-});
-
-app.get('/', (req, res) => {
-
-    let query = "INSERT INTO (produto, quantidade, preco_total) VALUES ('detergente', 200, 150)";
-
-});
-
-app.listen(3001, ()=>{
-    console.log('rodando server');
-}); */
-
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
@@ -87,6 +66,27 @@ app.get("/estoque", (req, res) => {
     }
   });
 });
+
+
+// Rota para deletar um produto do estoque
+app.delete("/estoque/:id", (req, res) => {
+  const productId = req.params.id;
+
+  const sql = "DELETE FROM estoque WHERE id = ?";
+
+  db.query(sql, [productId], (err, result) => {
+    if (err) {
+      console.error("Erro ao deletar produto:", err);
+      res.status(500).send("Erro ao deletar produto");
+    } else {
+      console.log("Produto deletado com sucesso!");
+      res.send("Produto deletado com sucesso!");
+    }
+  });
+});
+
+// ...
+
 
 
 app.listen(port, () => {

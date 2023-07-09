@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Select from "../form/Select";
 import { useState } from "react";
 import Axios from "axios";
 
@@ -39,7 +38,8 @@ const Button = styled.button`
 `;
 
 export default function Form() {
-  const [values, setValues] = useState("");
+  const [values, setValues] = useState({});
+
   const handleChangeValues = (value) => {
     setValues((prevValue) => ({
       ...prevValue,
@@ -48,6 +48,10 @@ export default function Form() {
   };
 
   const handleSubmit = () => {
+    if (!values.produto || !values.quantidade || !values.preco_total) {
+      return;
+    }
+  
     Axios.post("http://localhost:3001/register", values)
       .then((res) => {
         console.log(res);
@@ -56,6 +60,7 @@ export default function Form() {
         console.error(err);
       });
   };
+  
   
   return (
     <form>
@@ -66,6 +71,7 @@ export default function Form() {
           name="produto"
           type="text"
           placeholder="Insira o tipo de produto"
+          required
           onChange={handleChangeValues}
         />
         <Label htmlFor="Quantidade">Quantidade:</Label>
@@ -74,6 +80,7 @@ export default function Form() {
           name="quantidade"
           type="number"
           placeholder="Insira a quantidade"
+          required
           onChange={handleChangeValues}
         />
         <Label htmlFor="Valor total">Valor total:</Label>
@@ -82,6 +89,7 @@ export default function Form() {
           name="preco_total"
           type="number"
           placeholder="Insira o valor total"
+          required
           onChange={handleChangeValues}
         />
       </Content>

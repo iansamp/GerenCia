@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import Form from "./Form";
+import Delete from "./Delete";
+import Message from "./Message";
 
 const Button = styled.button`
   background-color: #222;
@@ -35,6 +37,8 @@ const Div = styled.div`
 
 const Table = styled.table`
   border-collapse: collapse;
+  margin: 0em 1.5em 0em 1.5em;
+
   caption {
     font-size: 1.5em;
     font-weight: bolder;
@@ -59,10 +63,31 @@ const Table = styled.table`
 
 const Estoque = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisibleMsg, setIsVisibleMsg] = useState(false);
   const [listProduct, setListProduct] = useState();
+  const [message, setMessage] = useState("");
+  
 
   const handleClick = () => {
     setIsVisible(!isVisible);
+  };
+
+  const handleDeleteProduct = (productId) => {
+    Axios.delete(`http://localhost:3001/estoque/${productId}`)
+      .then((response) => {
+        console.log("Produto deletado com sucesso!");
+        setListProduct((prevList) =>
+          prevList.filter((item) => item.id !== productId)
+        );
+        setMessage("Produto deletado com sucesso!");
+        setIsVisibleMsg(true);
+        setTimeout(() => {
+          setIsVisibleMsg(false);
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error("Erro ao deletar produto:", error);
+      });
   };
 
   useEffect(() => {
@@ -105,11 +130,18 @@ const Estoque = () => {
                   <td>{item.quantidade}</td>
                   <td>{item.preco_total}</td>
                   <td>{item.preco_und.toFixed(2)}</td>
+                  <td>
+                    <Delete
+                      productId={item.id}
+                      onDelete={handleDeleteProduct}
+                    />
+                  </td>
                 </tr>
               );
             })}
         </tbody>
       </Table>
+      {isVisibleMsg && <Message>{message}</Message>}
     </Div>
   );
 };
