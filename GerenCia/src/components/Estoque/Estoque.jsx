@@ -66,7 +66,6 @@ const Estoque = () => {
   const [isVisibleMsg, setIsVisibleMsg] = useState(false);
   const [listProduct, setListProduct] = useState();
   const [message, setMessage] = useState("");
-  
 
   const handleClick = () => {
     setIsVisible(!isVisible);
@@ -134,6 +133,7 @@ const Estoque = () => {
                     <Delete
                       productId={item.id}
                       onDelete={handleDeleteProduct}
+                      produto={item.produto}
                     />
                   </td>
                 </tr>

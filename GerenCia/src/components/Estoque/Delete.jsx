@@ -13,12 +13,14 @@ const Div = styled.div`
   width: 23.5px;
 `;
 
-export default function Delete({ productId, onDelete }) {
+export default function Delete({ productId, onDelete, produto}) {
   const [open, setOpen] = React.useState(false);
+
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+  
 
   const handleClose = () => {
     setOpen(false);
@@ -56,7 +58,7 @@ export default function Delete({ productId, onDelete }) {
         <DialogTitle id="alert-dialog-title">{"Deletar produto!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Tem certeza que deseja deletar este produto?
+            Tem certeza que deseja deletar {produto}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
