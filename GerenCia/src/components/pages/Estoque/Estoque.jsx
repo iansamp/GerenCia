@@ -82,7 +82,6 @@ const Estoque = () => {
   const [isVisibleMsg, setIsVisibleMsg] = useState(false);
   const [listProduct, setListProduct] = useState();
   const [message, setMessage] = useState("");
-  const [searchValue, setSearchValue] = useState("");
 
   const handleClick = () => {
     setIsVisible(!isVisible);
@@ -116,25 +115,6 @@ const Estoque = () => {
     }
   }, [listProduct]);
 
-  useEffect(() => {
-    fetchProductList();
-  }, [searchValue]);
-
-  const fetchProductList = () => {
-    const searchQuery = searchValue ? `&search=${searchValue}` : "";
-    Axios.get(`http://localhost:3001/estoque?${searchQuery}`)
-      .then((response) => {
-        setListProduct(response.data);
-      })
-      .catch((error) => console.error("Erro ao buscar dados:", error));
-  };
-
-  const handleSearch = (event) => {
-    const { value } = event.target;
-    console.log(value);
-    setSearchValue(value);
-  };
-
   return (
     <Div>
       <Button onClick={handleClick}>{isVisible ? "fechar" : "Adiconar"}</Button>
@@ -143,15 +123,6 @@ const Estoque = () => {
           <Form />
         </Content>
       )}
-
-      <ContentInput>
-        <input
-          type="text"
-          placeholder="Pesquisar por produto"
-          values={searchValue}
-          onChange={handleSearch}
-        />
-      </ContentInput>
 
       <Table>
         <caption>Estoque</caption>
