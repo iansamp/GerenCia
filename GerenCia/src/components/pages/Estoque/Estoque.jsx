@@ -15,7 +15,7 @@ const Button = styled.button`
   border: none;
   text-transform: uppercase;
   max-width: 100px;
-  margin: 1em;
+  margin: 1em 1em 1em 1.8em;
   &:hover {
     color: #f26b0c;
   }
@@ -27,12 +27,14 @@ const Content = styled.div`
   padding: 0.5em;
   margin-left: 24.5em;
   width: 400px;
+
 `;
 
 const Div = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-left: 13%;
 `;
 
 const Table = styled.table`
@@ -61,11 +63,26 @@ const Table = styled.table`
   }
 `;
 
+const ContentInput = styled.div`
+  margin-left: 1.5em;
+
+  input {
+    padding: 0.5em;
+    border-radius: 0;
+    border: 1px solid black;
+  }
+
+  input::placeholder {
+    color: #7b7b7b;
+  }
+`;
+
 const Estoque = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleMsg, setIsVisibleMsg] = useState(false);
   const [listProduct, setListProduct] = useState();
   const [message, setMessage] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   const handleClick = () => {
     setIsVisible(!isVisible);
@@ -99,6 +116,25 @@ const Estoque = () => {
     }
   }, [listProduct]);
 
+  useEffect(() => {
+    fetchProductList();
+  }, [searchValue]);
+
+  const fetchProductList = () => {
+    const searchQuery = searchValue ? `&search=${searchValue}` : "";
+    Axios.get(`http://localhost:3001/estoque?${searchQuery}`)
+      .then((response) => {
+        setListProduct(response.data);
+      })
+      .catch((error) => console.error("Erro ao buscar dados:", error));
+  };
+
+  const handleSearch = (event) => {
+    const { value } = event.target;
+    console.log(value);
+    setSearchValue(value);
+  };
+
   return (
     <Div>
       <Button onClick={handleClick}>{isVisible ? "fechar" : "Adiconar"}</Button>
@@ -107,6 +143,15 @@ const Estoque = () => {
           <Form />
         </Content>
       )}
+
+      <ContentInput>
+        <input
+          type="text"
+          placeholder="Pesquisar por produto"
+          values={searchValue}
+          onChange={handleSearch}
+        />
+      </ContentInput>
 
       <Table>
         <caption>Estoque</caption>

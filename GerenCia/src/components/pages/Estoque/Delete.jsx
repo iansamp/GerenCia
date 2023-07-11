@@ -10,7 +10,7 @@ import styled from "styled-components";
 import Axios from "axios";
 
 const Div = styled.div`
-  width: 23.5px;
+  width: 45px;
 `;
 
 export default function Delete({ productId, onDelete, produto}) {
