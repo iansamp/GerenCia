@@ -48,7 +48,7 @@ export default function Form() {
   };
 
   const handleSubmit = () => {
-    if (!values.produto || !values.quantidade || !values.preco_total) {
+    if (!values.produto || !values.quantidade || !values.preco_und) {
       return;
     }
   
@@ -83,12 +83,14 @@ export default function Form() {
           required
           onChange={handleChangeValues}
         />
-        <Label htmlFor="Valor total">Valor total:</Label>
+        <Label htmlFor="Valor unitário">Valor unitário:</Label>
         <input
-          text="Valor total:"
-          name="preco_total"
+          text="Valor unitário:"
+          name="preco_und"
           type="number"
-          placeholder="Insira o valor total"
+          placeholder="Insira o valor da unidade"
+          step="0.01" 
+          min="-9999"
           required
           onChange={handleChangeValues}
         />

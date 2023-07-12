@@ -25,9 +25,8 @@ const Content = styled.div`
   display: ${({ isVisible }) => (isVisible ? "block" : "none")};
   background-color: #f9f9f9;
   padding: 0.5em;
-  margin-left: 24.5em;
+  margin-left: 15em;
   width: 400px;
-
 `;
 
 const Div = styled.div`
@@ -35,6 +34,10 @@ const Div = styled.div`
   flex-direction: column;
   width: 100%;
   margin-left: 13%;
+
+  @media (max-width: 1024px) {
+    margin-left: 11em;
+  }
 `;
 
 const Table = styled.table`
@@ -60,20 +63,6 @@ const Table = styled.table`
 
   tr:nth-child(even) {
     background-color: white;
-  }
-`;
-
-const ContentInput = styled.div`
-  margin-left: 1.5em;
-
-  input {
-    padding: 0.5em;
-    border-radius: 0;
-    border: 1px solid black;
-  }
-
-  input::placeholder {
-    color: #7b7b7b;
   }
 `;
 
@@ -131,8 +120,8 @@ const Estoque = () => {
             <th>ID</th>
             <th>Produto</th>
             <th>Quantidade</th>
-            <th>Preço Total</th>
             <th>Preço Und</th>
+            <th>Preço Total</th>
           </tr>
         </thead>
         <tbody>
@@ -143,8 +132,8 @@ const Estoque = () => {
                   <td>{item.id}</td>
                   <td>{item.produto}</td>
                   <td>{item.quantidade}</td>
-                  <td>{item.preco_total}</td>
-                  <td>{item.preco_und.toFixed(2)}</td>
+                  <td>{item.preco_und}</td>
+                  <td>{item.preco_total.toFixed(2)}</td>
                   <td>
                     <Delete
                       productId={item.id}

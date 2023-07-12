@@ -27,13 +27,13 @@ db.connect((err) => {
 
 // Rota para adicionar produtos no estoque
 app.post("/register", (req, res) => {
-  const { produto, quantidade, preco_total } = req.body;
+  const { produto, quantidade, preco_und } = req.body;
   console.log(produto);
 
   // Inserir os dados no banco de dados
   const sql =
-    'INSERT INTO estoque (produto, quantidade, preco_total) VALUES (?, ?, ?)';
-  const values = [produto, quantidade, preco_total];
+    'INSERT INTO estoque (produto, quantidade, preco_und) VALUES (?, ?, ?)';
+  const values = [produto, quantidade, preco_und];
 
   db.query(sql, values, (err, result) => {
     if (err) {
@@ -48,7 +48,7 @@ app.post("/register", (req, res) => {
 
 // Rota para buscar os dados da tabela estoque
 app.get("/estoque", (req, res) => {
-  const sql = "SELECT id, produto, quantidade, preco_total FROM estoque";
+  const sql = "SELECT id, produto, quantidade, preco_und FROM estoque";
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -59,8 +59,8 @@ app.get("/estoque", (req, res) => {
         id: row.id,
         produto: row.produto,
         quantidade: row.quantidade,
-        preco_total: row.preco_total,
-        preco_und: row.preco_total / row.quantidade,
+        preco_und: row.preco_und,
+        preco_total: row.preco_und * row.quantidade,
       }));
       res.send(data);
     }
