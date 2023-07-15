@@ -20,7 +20,6 @@ const Button = styled.button`
     color: #f26b0c;
   }
 `;
-
 const Content = styled.div`
   display: ${({ isVisible }) => (isVisible ? "block" : "none")};
   background-color: #f9f9f9;
@@ -28,7 +27,6 @@ const Content = styled.div`
   margin-left: 15em;
   width: 400px;
 `;
-
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,7 +37,6 @@ const Div = styled.div`
     margin-left: 11em;
   }
 `;
-
 const Table = styled.table`
   border-collapse: collapse;
   margin: 0em 1.5em 0em 1.5em;

@@ -6,7 +6,6 @@ const Label = styled.label`
   margin-top: 0.6em;
   font-weight: bold;
 `;
-
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -22,7 +21,6 @@ const Content = styled.div`
     color: #7b7b7b;
   }
 `;
-
 const Button = styled.button`
   background-color: #222;
   color: #fff;
@@ -54,7 +52,6 @@ export default function Form() {
   
     Axios.post("http://localhost:3001/register", values)
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => {
         console.error(err);
@@ -67,7 +64,6 @@ export default function Form() {
       <Content>
         <Label htmlFor="produto">Produto:</Label>
         <input
-          text="Produto:"
           name="produto"
           type="text"
           placeholder="Insira o tipo de produto"
@@ -76,7 +72,6 @@ export default function Form() {
         />
         <Label htmlFor="Quantidade">Quantidade:</Label>
         <input
-          text="Quantidade:"
           name="quantidade"
           type="number"
           placeholder="Insira a quantidade"
@@ -85,7 +80,6 @@ export default function Form() {
         />
         <Label htmlFor="Valor unitário">Valor unitário:</Label>
         <input
-          text="Valor unitário:"
           name="preco_und"
           type="number"
           placeholder="Insira o valor da unidade"
