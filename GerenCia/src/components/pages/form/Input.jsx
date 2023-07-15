@@ -1,5 +1,22 @@
 import styled from "styled-components";
 
+  const Label = styled.label`
+    font-weight: bold;
+  `;
+  const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+  `;
+  const Inputt = styled.input`
+      padding: 0.7em;
+      border-radius: 0;
+      border: 1px solid black;
+      &::placeholder{
+        color: #7b7b7b;
+      }
+  `
+
 export default function Input({
   type,
   text,
@@ -8,31 +25,11 @@ export default function Input({
   handleChangeValues,
   value,
 }) {
-  const Label = styled.label`
-    margin-bottom: 0.6em;
-    font-weight: bold;
-  `;
-
-  const Content = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1em;
-
-    input {
-      padding: 0.7em;
-      border-radius: 0;
-      border: 1px solid black;
-    }
-
-    input::placeholder {
-      color: #7b7b7b;
-    }
-  `;
 
   return (
     <Content>
       <Label htmlFor={name}>{text}</Label>
-      <input
+      <Inputt
         type={type}
         name={name}
         id={name}
