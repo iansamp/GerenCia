@@ -28,11 +28,10 @@ db.connect((err) => {
 // Rota para adicionar produtos no estoque
 app.post("/register", (req, res) => {
   const { produto, quantidade, preco_und } = req.body;
-  console.log(produto);
 
   // Inserir os dados no banco de dados
   const sql =
-    'INSERT INTO estoque (produto, quantidade, preco_und) VALUES (?, ?, ?)';
+    "INSERT INTO estoque (produto, quantidade, preco_und) VALUES (?, ?, ?)";
   const values = [produto, quantidade, preco_und];
 
   db.query(sql, values, (err, result) => {
@@ -40,7 +39,6 @@ app.post("/register", (req, res) => {
       console.error("Erro ao inserir dados:", err);
       res.status(500).send("Erro ao adicionar pruduto");
     } else {
-      console.log("Produto adicionado com sucesso!");
       res.send("Produto adicionado com sucesso!");
     }
   });
@@ -67,7 +65,6 @@ app.get("/estoque", (req, res) => {
   });
 });
 
-
 // Rota para deletar um produto do estoque
 app.delete("/estoque/:id", (req, res) => {
   const productId = req.params.id;
@@ -85,9 +82,70 @@ app.delete("/estoque/:id", (req, res) => {
   });
 });
 
-// ...
+// Rota para buscar as categorias da tabela categorias
+app.get("/categorias", (req, res) => {
+  const sql = "SELECT tipo_no, nome_tipo FROM categorias";
 
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Erro ao buscar dados:", err);
+      res.status(500).send("Erro ao buscar dados");
+    } else {
+      const data = result.map((row) => ({
+        id: row.tipo_no,
+        name: row.nome_tipo,
+      }));
+      res.send(data);
+    }
+  });
+});
 
+// Rota para inserir lanches no banco de dados
+app.post("/registerLanches", (req, res) => {
+  const { nome, descricao, valor, tipo_no } = req.body;
+
+  const sql =
+    "INSERT INTO lanches (nome, descricao, valor, tipo_no) VALUES (?, ?, ?, ?)";
+  const values = [nome, descricao, valor, tipo_no];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Erro ao inserir lanche:", err);
+      res.status(500).send("Erro ao inserir lanche");
+    } else {
+      console.log("Lanche inserido com sucesso!");
+      res.send("Lanche inserido com sucesso!");
+    }
+  });
+});
+
+// Rota para pegar os dados da tabela lanches
+app.get("/lanches", (req, res) => {
+  const sql = `
+  SELECT l.*, nome_tipo AS nome_categoria
+  FROM lanches l
+  JOIN categorias c ON l.tipo_no = c.tipo_no;
+  `;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Erro ao buscar dados:", err);
+      res.status(500).send("Erro ao buscar dados");
+    } else {
+      const data = result.map((row) => ({
+        id: row.idLanches,
+        name: row.nome,
+        descricao: row.descricao,
+        valor: row.valor,
+        categoria: {
+          id: row.categoria,
+          nome: row.nome_categoria,
+        },
+      }));
+      res.send(data);
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);

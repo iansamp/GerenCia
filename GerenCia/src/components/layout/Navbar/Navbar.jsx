@@ -10,7 +10,7 @@ export default function Navbar() {
         <ul>
           <li>Caixa</li>
           <li>Pedidos</li>
-          <li>Lanches</li>
+          <li><Link to="/lanches">Lanches</Link></li>
           <li><Link to="/estoque">Estoque</Link> </li>
         </ul>
       </nav>
