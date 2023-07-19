@@ -79,10 +79,22 @@ export default function FormLanches() {
     }
   }, [categories]);
 
+<<<<<<< HEAD
   return (
     <form>
       <Content>
         <SelectCat name="tipo_no" value={estado} onChange={handleChangeValues}>
+=======
+
+  return (
+    <form>
+      <Content>
+        <SelectCat
+          name="tipo_no"
+          value={estado}
+          onChange={handleChangeValues}
+        >
+>>>>>>> f19e8018babc6708b17c84774f40c5bdc5a7aa8e
           <option>Selecione uma categoria</option>
           {categories &&
             categories.map((option) => (

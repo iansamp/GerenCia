@@ -146,6 +146,7 @@ app.get("/lanches", (req, res) => {
     }
   });
 });
+<<<<<<< HEAD
 
 // Rota para editar os dados do lanche
 app.put("/edit", (req, res) => {
@@ -182,6 +183,8 @@ app.delete("/del/:id", (req, res) => {
     }
   });
 });
+=======
+>>>>>>> f19e8018babc6708b17c84774f40c5bdc5a7aa8e
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
