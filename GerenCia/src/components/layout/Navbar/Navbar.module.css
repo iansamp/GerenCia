@@ -1,5 +1,5 @@
 :root{
-    --orange: #F26B0C;
+    --orange: #000752;
     --grey: #DFE0DF;
     --light-brown: #693B21;
     --Brown: #402E32
@@ -23,7 +23,7 @@
 
 .navbar h1 a{
     text-decoration: none;
-    color: black;
+    color: #DFE0DF;
 }
 
 .navbar ul{
@@ -36,11 +36,17 @@
     text-decoration: none;
     list-style: none;
     padding: 1em;
+    font-size: 18px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    color: #DFE0DF;
 }
 
-.navbar ul li a{
+.navbar ul a{
     text-decoration: none;
     list-style: none;
-    color: black;
+    color: #DFE0DF;
 }
+
+.navbar ul a li .active {
+    background-color: #DFE0DF;
+} 

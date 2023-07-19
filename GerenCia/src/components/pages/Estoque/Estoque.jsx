@@ -5,6 +5,7 @@ import Form from "./Form";
 import Delete from "./Delete";
 import Message from "./Message";
 
+
 const Button = styled.button`
   background-color: #222;
   color: #fff;
@@ -76,7 +77,6 @@ const Estoque = () => {
   const handleDeleteProduct = (productId) => {
     Axios.delete(`http://localhost:3001/estoque/${productId}`)
       .then((response) => {
-        console.log("Produto deletado com sucesso!");
         setListProduct((prevList) =>
           prevList.filter((item) => item.id !== productId)
         );
