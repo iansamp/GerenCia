@@ -35,7 +35,7 @@ Este é o repositório do projeto de gerenciamento de restaurantes, que tem como
    npm install
    ```
 
-4. Configure o banco de dados MySQL com as informações de conexão necessárias no arquivo `server/config/db.js`.
+4. Configure o banco de dados MySQL com as informações de conexão necessárias no arquivo `server/server.js`.
 5. Inicie o servidor (Back-end):
 
    ```bash
@@ -50,7 +50,7 @@ Este é o repositório do projeto de gerenciamento de restaurantes, que tem como
    npm run dev
    ```
 
-7. Acesse o aplicativo em seu navegador através do endereço: `http://localhost:3000`.
+7. Acesse o aplicativo em seu navegador através do endereço: `http://localhost:5173`.
 
 ## Funcionalidades do Projeto
 
@@ -62,6 +62,6 @@ Se você deseja contribuir com este projeto, fique à vontade para abrir um "pul
 
 ## Licença
 
-[Inserir aqui a licença do projeto, caso exista.]
+Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
 
 ---
