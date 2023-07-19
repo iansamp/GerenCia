@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Axios from "axios";
 import FormDialog from "../../dialog/Dialog";
 
 const Cards = styled.div`
@@ -15,17 +14,14 @@ const CardContent = styled.div`
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 10px;
   background-color: #999999;
-
   span {
     padding-left: 1em;
     font-weight: bold;
   }
-
   h2 {
     padding-left: 0.5em;
     border-top: 1px solid black;
   }
-
   h3 {
     padding-left: 0.5em;
     border-top: 1px solid black;
@@ -37,7 +33,6 @@ const CardContent = styled.div`
       padding-left: 0em;
     }
   }
-
   div {
     border-top: 1px solid black;
     padding: 0.5em 0em 0.5em 0.5em;
