@@ -13,7 +13,8 @@ const CardContent = styled.div`
   border: 1px solid black;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 10px;
-  background-color: #999999;
+  background-color: #8bc6ec;
+  background-image: linear-gradient(150deg, #8bc6ec 0%, #9599e2 100%);
   span {
     padding-left: 1em;
     font-weight: bold;

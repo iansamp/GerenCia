@@ -6,6 +6,8 @@ const Div = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+    padding: 15em;
+    margin-left: 10em;
     p {
       font-size: 15px;
     }

@@ -84,7 +84,7 @@ app.delete("/estoque/:id", (req, res) => {
 
 // Rota para buscar as categorias da tabela categorias
 app.get("/categorias", (req, res) => {
-  const sql = "SELECT tipo_no, nome_tipo FROM categorias";
+  const sql = `SELECT tipo_no, nome_tipo FROM categorias WHERE tipo_no LIKE "%T%" ORDER BY nome_tipo ASC`;
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -124,7 +124,8 @@ app.get("/lanches", (req, res) => {
   const sql = `
   SELECT l.*, nome_tipo AS nome_categoria
   FROM lanches l
-  JOIN categorias c ON l.tipo_no = c.tipo_no;
+  JOIN categorias c ON l.tipo_no = c.tipo_no
+  ORDER BY idLanches ASC;
   `;
 
   db.query(sql, (err, result) => {

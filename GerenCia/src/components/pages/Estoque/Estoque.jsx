@@ -119,6 +119,7 @@ const Estoque = () => {
             <th>Quantidade</th>
             <th>Preço Und</th>
             <th>Preço Total</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>

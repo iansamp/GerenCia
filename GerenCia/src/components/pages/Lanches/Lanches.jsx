@@ -48,7 +48,6 @@ const Wrap = styled.div`
   justify-content: center;
   gap: 1em;
 `;
-
 const Cards = styled.div`
   margin-left: 1em;
   display: flex;
@@ -76,7 +75,7 @@ export default function Lanches() {
 
   return (
     <Div>
-      <h1>Lanches</h1>
+      <h1>Produtos</h1>
       <Button onClick={handleClick}>{isVisible ? "fechar" : "Adiconar"}</Button>
       {isVisible && (
         <Content isVisible={isVisible}>

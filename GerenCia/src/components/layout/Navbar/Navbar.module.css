@@ -39,6 +39,7 @@
     font-size: 18px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     color: #DFE0DF;
+    transition: .3s;
 }
 
 .navbar ul a{
@@ -47,6 +48,12 @@
     color: #DFE0DF;
 }
 
-.navbar ul a li .active {
+.navbar ul a li:hover{
+    background-color: #000a7c;
+}
+
+.navbar ul a li:active{
     background-color: #DFE0DF;
+    color: black;
+    transform: scale(.80);
 } 
