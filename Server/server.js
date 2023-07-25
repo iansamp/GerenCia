@@ -13,7 +13,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "gestão",
+  database: "gestao",
 });
 
 // Verificar se a conexão com o banco de dados foi estabelecida

@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import Axios from "axios";
+import { useState } from "react";
 import FormLanches from "./FormLanches";
-import Card from "./Card";
+import Tabs from "./Tabs";
 
 const Div = styled.div`
   display: flex;
@@ -42,36 +41,37 @@ const Content = styled.div`
   margin-bottom: 1.5em;
   width: 400px;
 `;
-const Wrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1em;
-`;
-const Cards = styled.div`
-  margin-left: 1em;
-  display: flex;
-  gap: 1em;
-  flex-wrap: wrap;
-`;
 
 export default function Lanches() {
   const [isVisible, setIsVisible] = useState(false);
-  const [listProduct, setListProduct] = useState();
 
   const handleClick = () => {
     setIsVisible(!isVisible);
   };
 
-  useEffect(() => {
-    if (!listProduct) {
-      Axios.get("http://localhost:3001/lanches")
-        .then((response) => {
-          setListProduct(response.data);
-        })
-        .catch((error) => console.error("Erro ao buscar dados:", error));
-    }
-  }, [listProduct]);
+  const tabs = [
+    {
+      label: "Batata frita",
+    },
+    {
+      label: "Hambúrguer",
+    },
+    {
+      label: "Hot Dog",
+    },
+    {
+      label: "Pizza",
+    },
+    {
+      label: "Salada",
+    },
+    {
+      label: "Sanduíche",
+    },
+    {
+      label: "Tapioca",
+    },
+  ];
 
   return (
     <Div>
@@ -82,23 +82,10 @@ export default function Lanches() {
           <FormLanches />
         </Content>
       )}
-      <Wrap>
-        {typeof listProduct !== "undefined" &&
-          listProduct.map((item) => {
-            return (
-              <Card
-                key={item.id}
-                listProduct={listProduct}
-                setListProduc={setListProduct}
-                id={item.id}
-                name={item.name}
-                descricao={item.descricao}
-                valor={item.valor}
-                categoria={item.categoria.nome}
-              />
-            );
-          })}
-      </Wrap>
+      <div>
+        <h1>Menu</h1>
+        <Tabs tabs={tabs} />
+      </div>
     </Div>
   );
 }
