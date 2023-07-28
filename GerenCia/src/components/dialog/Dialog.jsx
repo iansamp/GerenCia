@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -22,21 +22,39 @@ function Alert(props) {
 }
 
 export default function FormDialog(props) {
-  const [editValues, setEditValues] = React.useState({
+  const [editValues, setEditValues] = useState({
     id: props.id,
     name: props.name,
     descricao: props.descricao,
     valor: props.valor,
   });
-  const [isEdited, setIsEdited] = React.useState(false);
-  const [isDeleted, setIsDeleted] = React.useState(false);
+  const [isEdited, setIsEdited] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  useEffect(() => {
+    // Atualiza o estado editValues sempre que as props mudarem
+    setEditValues({
+      id: props.id,
+      name: props.name,
+      descricao: props.descricao,
+      valor: props.valor,
+      tipo: props.tipo,
+    });
+  }, [props.id, props.name, props.descricao, props.valor, props.tipo]);
 
   const handleEditProd = () => {
-    Axios.put("http://localhost:3001/edit", {
-      id: editValues.id,
-      name: editValues.name,
-      descricao: editValues.descricao,
-      valor: editValues.valor,
+    const { id, name, descricao, valor, tipo } = editValues;
+
+    const editEndpoint =
+      tipo === "lanche"
+      ? "http://localhost:3001/editLanche"
+      : "http://localhost:3001/editBebida";
+
+    Axios.put(editEndpoint, {
+      id,
+      name,
+      descricao,
+      valor,
     })
       .then(() => setIsEdited(true))
       .catch((error) => console.error(error));
@@ -44,8 +62,13 @@ export default function FormDialog(props) {
   };
 
   const handleDelete = () => {
-    Axios.delete(`http://localhost:3001/del/${editValues.id}`)
-      .then(() => setIsEdited(true))
+    const deleteEndpoint =
+      props.tipo === "lanche"
+        ? `http://localhost:3001/delLanche/${editValues.id}`
+        : `http://localhost:3001/delBebida/${editValues.id}`;
+
+    Axios.delete(deleteEndpoint)
+      .then(() => setIsDeleted(true))
       .catch((error) => console.error(error));
     handleClose();
   };
@@ -92,17 +115,19 @@ export default function FormDialog(props) {
             variant="standard"
             onChange={handleChangeValues}
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="descricao"
-            label="Descrição do produto"
-            defaultValue={props.descricao}
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={handleChangeValues}
-          />
+          {props.descricao && (
+            <TextField
+              autoFocus
+              margin="dense"
+              id="descricao"
+              label="Descrição do produto"
+              defaultValue={props.descricao}
+              type="text"
+              fullWidth
+              variant="standard"
+              onChange={handleChangeValues}
+            />
+          )}
           <TextField
             autoFocus
             margin="dense"

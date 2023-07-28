@@ -5,6 +5,8 @@ import Home from "./components/pages/Home";
 import Estoque from "./components/pages/Estoque/Estoque";
 import Form from "./components/pages/Estoque/Form";
 import Lanches from "./components/pages/Lanches/Lanches";
+import Bebidas from "./components/pages/Lanches/Bebidas";
+
 const Content = styled.div`
   background-color: #dfe0df;
   display: flex;
@@ -19,6 +21,7 @@ function App() {
           <Route path="/estoque" element={<Estoque />} />
           <Route path="/estoque" element={<Form />} />
           <Route path="/lanches" element={<Lanches />} />
+          <Route path="/bebidas" element={<Bebidas />} />
         </Routes>
       </Content>
     </Router>

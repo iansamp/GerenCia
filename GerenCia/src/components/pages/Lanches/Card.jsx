@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import FormDialog from "../../dialog/Dialog";
 
@@ -9,7 +9,7 @@ const Cards = styled.div`
 `;
 const CardContent = styled.div`
   width: 250px;
-  min-height: 270px;
+  min-height: 200px;
   border: 1px solid black;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 10px;
@@ -55,10 +55,12 @@ export default function Card(props) {
       <CardContent key={props.id}>
         <span>ID: {props.id}</span>
         <h2>{props.name}</h2>
-        <div>
-          Descrição:
-          <p>{props.descricao}</p>
-        </div>
+        {props.descricao && (
+          <div>
+            Descrição:
+            <p>{props.descricao}</p>
+          </div>
+        )}
         <h3>R$ {props.valor}</h3>
         <p>
           Categoria: <span>{props.categoria}</span>
@@ -73,6 +75,7 @@ export default function Card(props) {
           setListCard={props.setListCard}
           onClick={() => handleClickCard()}
           id={props.id}
+          tipo={props.tipo}
         />
       </CardContent>
     </Cards>

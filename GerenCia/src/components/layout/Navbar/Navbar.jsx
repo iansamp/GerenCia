@@ -11,8 +11,11 @@ export default function Navbar() {
         <ul>
           <li>Caixa</li>
           <li>Pedidos</li>
+          <Link to="/bebidas">
+            <li>Bebidas</li>
+          </Link>
           <Link to="/lanches">
-            <li>Produtos</li>
+            <li>Lanches</li>
           </Link>
           <Link to="/estoque">
             <li>Estoque</li>

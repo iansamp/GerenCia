@@ -82,9 +82,27 @@ app.delete("/estoque/:id", (req, res) => {
   });
 });
 
-// Rota para buscar as categorias da tabela categorias
+// Rota para buscar os lanches da tabela categorias
 app.get("/categorias", (req, res) => {
   const sql = `SELECT tipo_no, nome_tipo FROM categorias WHERE tipo_no LIKE "%T%" ORDER BY nome_tipo ASC`;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Erro ao buscar dados:", err);
+      res.status(500).send("Erro ao buscar dados");
+    } else {
+      const data = result.map((row) => ({
+        id: row.tipo_no,
+        name: row.nome_tipo,
+      }));
+      res.send(data);
+    }
+  });
+});
+
+// Rota para buscar as bebidas da tabela categorias
+app.get("/categoriasBebidas", (req, res) => {
+  const sql = `SELECT tipo_no, nome_tipo FROM categorias WHERE tipo_no LIKE "%b%" ORDER BY nome_tipo ASC`;
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -119,6 +137,24 @@ app.post("/registerLanches", (req, res) => {
   });
 });
 
+// Rota para inserir bebidas no banco de dados
+app.post("/registerBebidas", (req, res) => {
+  const { nome, valor, tipo_no } = req.body;
+
+  const sql = "INSERT INTO bebidas (nome, valor, tipo_no) VALUES ( ?, ?, ?)";
+  const values = [nome, valor, tipo_no];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.log("Erro ao inserir bebida:", err);
+      res.status(500).send("Erro ao inserir bebida");
+    } else {
+      console.log("Bebida inserido com sucesso!");
+      res.send("Bebida inserido com sucesso!");
+    }
+  });
+});
+
 // Rota para pegar os dados da tabela lanches
 app.get("/lanches", (req, res) => {
   const sql = `
@@ -148,14 +184,39 @@ app.get("/lanches", (req, res) => {
   });
 });
 
-// Rota para editar os dados do lanche
-app.put("/edit", (req, res) => {
-  const { id } = req.body;
-  const { name } = req.body;
-  const { descricao } = req.body;
-  const { valor } = req.body;
+// Rota para pegar os dados da tabela bebidas
+app.get("/bebidas", (req, res) => {
+  const sql = `
+  SELECT b.*, nome_tipo AS nome_categoria
+  FROM bebidas b
+  JOIN categorias c ON b.tipo_no = c.tipo_no
+  ORDER BY idBebidas ASC;
+  `;
 
-  let sql =
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Erro ao buscar dados:", err);
+      res.status(500).send("Erro ao buscar dados");
+    } else {
+      const data = result.map((row) => ({
+        id: row.idBebidas,
+        name: row.nome,
+        valor: row.valor,
+        categoria: {
+          id: row.categoria,
+          nome: row.nome_categoria,
+        },
+      }));
+      res.send(data);
+    }
+  });
+});
+
+// Rota para editar um lanche
+app.put("/editLanche", (req, res) => {
+  const { id, name, descricao, valor } = req.body;
+
+  const sql =
     "UPDATE lanches SET nome = ?, descricao = ?, valor = ? WHERE (idLanches = ?);";
 
   db.query(sql, [name, descricao, valor, id], (err, result) => {
@@ -168,8 +229,24 @@ app.put("/edit", (req, res) => {
   });
 });
 
-//Rota para deletar um lanche
-app.delete("/del/:id", (req, res) => {
+  // Rota para editar uma bebida
+  app.put("/editBebida", (req, res) => {
+    const { id, name, valor } = req.body;
+
+    const sql = "UPDATE bebidas SET nome = ?, valor = ? WHERE (idBebidas = ?);";
+
+    db.query(sql, [name, valor, id], (err, result) => {
+      if (err) {
+        console.error("Erro ao editar bebida:", err);
+        res.status(500).send("Erro ao editar bebida");
+      } else {
+        res.send("Bebida editada com sucesso!");
+      }
+    });
+  });
+
+// Rota para deletar um lanche
+app.delete("/delLanche/:id", (req, res) => {
   const { id } = req.params;
 
   const sql = "DELETE FROM lanches WHERE idLanches = ?";
@@ -180,6 +257,22 @@ app.delete("/del/:id", (req, res) => {
       res.status(500).send("Erro ao deletar lanche");
     } else {
       res.send("Lanche deletado com sucesso!");
+    }
+  });
+});
+
+// Rota para deletar uma bebida
+app.delete("/delBebida/:id", (req, res) => {
+  const { id } = req.params;
+
+  const sql = "DELETE FROM bebidas WHERE idBebidas = ?";
+
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error("Erro ao deletar bebida:", err);
+      res.status(500).send("Erro ao deletar bebida");
+    } else {
+      res.send("Bebida deletada com sucesso!");
     }
   });
 });

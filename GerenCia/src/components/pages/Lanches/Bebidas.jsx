@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
-import FormLanches from "./FormLanches";
-import LanchesTab from "./LanchesTab";
+import FormBabidas from "./FormBabidas";
+import BebidasTab from "./BebidasTab";
 
 const Div = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ const Content = styled.div`
   width: 400px;
 `;
 
-export default function Lanches() {
+export default function Bebidas() {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleClick = () => {
@@ -51,40 +51,40 @@ export default function Lanches() {
 
   const tabs = [
     {
-      label: "Batata frita",
+      label: "Água",
     },
     {
-      label: "Hambúrguer",
+      label: "Cerveja",
     },
     {
-      label: "Hot Dog",
+      label: "Energético",
     },
     {
-      label: "Pizza",
+      label: "Refrigerante",
     },
     {
-      label: "Salada",
+      label: "Suco",
     },
     {
-      label: "Sanduíche",
+      label: "Vinho",
     },
     {
-      label: "Tapioca",
+      label: "Whisky",
     },
   ];
 
   return (
     <Div>
-      <h1>Lanches</h1>
+      <h1>Bebidas</h1>
       <Button onClick={handleClick}>{isVisible ? "fechar" : "Adiconar"}</Button>
       {isVisible && (
         <Content isVisible={isVisible}>
-          <FormLanches tipo="lanche"/>
+          <FormBabidas tipo="bebida" />
         </Content>
       )}
       <div>
         <h1>Menu</h1>
-        <LanchesTab tabs={tabs} />
+        <BebidasTab tabs={tabs} />
       </div>
     </Div>
   );

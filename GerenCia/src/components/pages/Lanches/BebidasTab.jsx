@@ -3,17 +3,14 @@ import Axios from "axios";
 import styled from "styled-components";
 import Card from "./Card";
 
-
 const TabsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
-
 const TabsWrapper = styled.div`
   display: flex;
 `;
-
 const Tab = styled.div`
   padding: 10px 20px;
   cursor: pointer;
@@ -21,7 +18,6 @@ const Tab = styled.div`
   color: #000;
   border-radius: 10px 10px 0px 0px;
 `;
-
 const TabContent = styled.div`
   padding: 20px;
   background-color: #f1f1f1;
@@ -31,11 +27,11 @@ const TabContent = styled.div`
   width: 100%;
 `;
 
-const Tabs = ({ tabs }) => {
-    const [activeTab, setActiveTab] = useState(() => {
-        const storedTab = localStorage.getItem("activeTab");
-        return storedTab ? parseInt(storedTab, 10) : 0;
-      });
+const BebidasTab = ({ tabs }) => {
+  const [activeTab, setActiveTab] = useState(() => {
+    const storedTab = localStorage.getItem("activeTab");
+    return storedTab ? parseInt(storedTab, 10) : 0;
+  });
   const [listProduct, setListProduct] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -44,7 +40,7 @@ const Tabs = ({ tabs }) => {
   };
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/lanches")
+    Axios.get("http://localhost:3001/bebidas")
       .then((response) => {
         setListProduct(response.data);
       })
@@ -61,7 +57,6 @@ const Tabs = ({ tabs }) => {
     // Armazena o valor da aba ativa no localStorage
     localStorage.setItem("activeTab", activeTab);
   }, [activeTab, listProduct, tabs]);
-  
 
   return (
     <TabsContainer>
@@ -86,9 +81,9 @@ const Tabs = ({ tabs }) => {
                 setListProduc={setListProduct}
                 id={item.id}
                 name={item.name}
-                descricao={item.descricao}
                 valor={item.valor}
                 categoria={item.categoria.nome}
+                tipo="bebida"
               />
             );
           })}
@@ -97,4 +92,4 @@ const Tabs = ({ tabs }) => {
   );
 };
 
-export default Tabs;
+export default BebidasTab;
